@@ -2,13 +2,24 @@ import java.util.Arrays;
 
 public class NotePad {
 
-    private int notePadSize = 10;
-    private Note notes [] = new Note[notePadSize];
+    private int notePadSize;
+
+    private Note notes[];
+
+    public NotePad(int customerSize){
+        notePadSize = customerSize;
+        notes = new Note[notePadSize];
+    }
+
+    public  NotePad(){
+        notePadSize = 10;
+        notes = new Note[notePadSize];
+    }
 
     /**
      * The addNote program implements an application that adds a new Note to the NotePad.
      * It checks the array of notes and looks for empty cells (null),
-     * where it writes a new note. If all cells are occupied, it called the method copyOf
+     * where it writes a new note. If all cells are occupied, it calles the method copyOf()
      * which allows you to copy the array, add  5 more empty cells to it and write your
      * notetoAdd to the notes array
      * @param noteToAdd Note that you want to add to the notePad
@@ -44,7 +55,7 @@ public class NotePad {
      */
 
     void removeNote(int index){
-        Note temp [] = new Note[notes.length];
+        Note temp [] = new Note[notes.length - 1];
         System.arraycopy(notes, 0, temp, 0, index);
         System.arraycopy(notes, index + 1, temp, index, notes.length - index - 1);
         notes = temp;
@@ -60,8 +71,13 @@ public class NotePad {
      */
 
     void editNote(int index, Note newNote){
-        if (newNote != null) {
-            notes[index] = newNote;
+        if (index < notes.length && index >= 0) {
+            if (newNote != null) {
+                notes[index] = newNote;
+            }
+        }
+        else {
+            System.out.println("Incorrect index for edit note! Enter the right value of index.");
         }
     }
 
@@ -75,7 +91,7 @@ public class NotePad {
     void showAllNotes() {
         for (Note note : notes) {
             if (note != null) {
-                System.out.println(note.note);
+                System.out.println(note.getNote());
             }
         }
         System.out.println();

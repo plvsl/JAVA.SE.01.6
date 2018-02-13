@@ -1,8 +1,12 @@
 public class Note {
 
-    public String note;
+    private String note;
     /* constructor */
     public Note(String value) {
         note = value;
+    }
+
+    public String getNote() {
+        return note;
     }
 }
