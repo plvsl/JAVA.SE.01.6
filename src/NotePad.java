@@ -2,8 +2,8 @@ import java.util.Arrays;
 
 public class NotePad {
 
+    private static final int standardSize = 10;
     private int notePadSize;
-
     private Note notes[];
 
     public NotePad(int customerSize){
@@ -12,9 +12,15 @@ public class NotePad {
     }
 
     public  NotePad(){
-        notePadSize = 10;
+        notePadSize = standardSize;
         notes = new Note[notePadSize];
     }
+
+    /*@Override
+    public boolean equals(Object obj) {
+        return this.hashCode() == obj.hashCode();
+        //return (this.notePadSize == ((NotePad)obj).notePadSize);
+    }*/
 
     /**
      * The addNote program implements an application that adds a new Note to the NotePad.
@@ -55,7 +61,8 @@ public class NotePad {
      */
 
     void removeNote(int index){
-        Note temp [] = new Note[notes.length - 1];
+        notePadSize = notes.length - 1;
+        Note temp [] = new Note[notePadSize];
         System.arraycopy(notes, 0, temp, 0, index);
         System.arraycopy(notes, index + 1, temp, index, notes.length - index - 1);
         notes = temp;
@@ -95,5 +102,9 @@ public class NotePad {
             }
         }
         System.out.println();
+    }
+
+    public int getNotePadSize() {
+        return notePadSize;
     }
 }

@@ -51,5 +51,14 @@ public class Main {
         notepad2.editNote(34, new Note("NewNote!"));
         notepad2.showAllNotes();
 
+        System.out.println("**********************************************");
+
+        notepad2.removeNote(0);
+        System.out.println(notepad2.getNotePadSize());
+        notepad2.removeNote(0);
+        System.out.println(notepad2.getNotePadSize());
+        notepad2.removeNote(0);
+        System.out.println(notepad2.getNotePadSize());
+
     }
 }
