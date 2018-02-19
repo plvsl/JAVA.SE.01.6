@@ -16,12 +16,6 @@ public class NotePad {
         notes = new Note[notePadSize];
     }
 
-    /*@Override
-    public boolean equals(Object obj) {
-        return this.hashCode() == obj.hashCode();
-        //return (this.notePadSize == ((NotePad)obj).notePadSize);
-    }*/
-
     /**
      * The addNote program implements an application that adds a new Note to the NotePad.
      * It checks the array of notes and looks for empty cells (null),
