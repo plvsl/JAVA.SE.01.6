@@ -60,5 +60,17 @@ public class Main {
         notepad2.removeNote(0);
         System.out.println(notepad2.getNotePadSize());
 
+        System.out.println("**********************************************");
+        NotePad notepad3 = new NotePad(700);
+        notepad3.showAllNotes();
+        System.out.println(notepad3.getNotePadSize());
+        notepad3.addNote(new Note("checking"));
+        notepad3.addNote(new Note("checking2"));
+        notepad3.showAllNotes();
+        System.out.println(notepad3.getNotePadSize());
+        notepad3.removeNote(0);
+        notepad3.showAllNotes();
+        System.out.println(notepad3.getNotePadSize());
+
     }
 }

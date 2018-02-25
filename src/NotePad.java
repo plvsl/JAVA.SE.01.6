@@ -3,25 +3,18 @@ import java.util.Arrays;
 public class NotePad {
 
     private static final int standardSize = 10;
-    private int notePadSize;
+    private static final double expansionCoeff = 1.5;
     private Note notes[];
+    private int actualSize = 0;
 
-    public NotePad(int customerSize){
-        notePadSize = customerSize;
-        notes = new Note[notePadSize];
+    public NotePad(int customSize){
+        notes = new Note[customSize];
     }
 
     public  NotePad(){
-        notePadSize = standardSize;
-        notes = new Note[notePadSize];
+        notes = new Note[standardSize];
     }
-
-    /*@Override
-    public boolean equals(Object obj) {
-        return this.hashCode() == obj.hashCode();
-        //return (this.notePadSize == ((NotePad)obj).notePadSize);
-    }*/
-
+    
     /**
      * The addNote program implements an application that adds a new Note to the NotePad.
      * It checks the array of notes and looks for empty cells (null),
@@ -44,10 +37,11 @@ public class NotePad {
             }
         }
         if (!marker) {
-            notes = Arrays.copyOf(notes, notePadSize + 5);
-            notes[notePadSize] = noteToAdd;
-            notePadSize = notePadSize + 5;
+            Note temp [] = Arrays.copyOf(notes, (int) (notes.length * expansionCoeff));
+            temp[notes.length] = noteToAdd;
+            notes = temp;
         }
+        actualSize++;
     }
 
     /**
@@ -61,11 +55,23 @@ public class NotePad {
      */
 
     void removeNote(int index){
-        notePadSize = notes.length - 1;
-        Note temp [] = new Note[notePadSize];
-        System.arraycopy(notes, 0, temp, 0, index);
-        System.arraycopy(notes, index + 1, temp, index, notes.length - index - 1);
-        notes = temp;
+        if (checkElement(index)) {
+            Note temp [] = new Note[notes.length - 1];
+            System.arraycopy(notes, 0, temp, 0, index);
+            System.arraycopy(notes, index + 1, temp, index, notes.length - index - 1);
+            notes = temp;
+
+            if (notes.length > actualSize * expansionCoeff) {
+                temp = new Note[(int) (actualSize * expansionCoeff)];
+                System.arraycopy(notes, 0, temp, 0, actualSize);
+                notes = temp;
+            }
+        }
+        else {
+            System.out.println("Incorrect index for remove note! Enter right value of index.");
+        }
+
+        actualSize--;
     }
 
     /**
@@ -78,13 +84,13 @@ public class NotePad {
      */
 
     void editNote(int index, Note newNote){
-        if (index < notes.length && index >= 0) {
+        if (checkElement(index)) {
             if (newNote != null) {
                 notes[index] = newNote;
             }
         }
         else {
-            System.out.println("Incorrect index for edit note! Enter the right value of index.");
+            System.out.println("Incorrect index for edit note! Enter right value of index.");
         }
     }
 
@@ -94,6 +100,10 @@ public class NotePad {
      * @version 1.0
      * @since   2018-02-11
      */
+
+    private boolean checkElement(int index) {
+        return index < notes.length && index >= 0;
+    }
 
     void showAllNotes() {
         for (Note note : notes) {
@@ -105,6 +115,6 @@ public class NotePad {
     }
 
     public int getNotePadSize() {
-        return notePadSize;
+        return notes.length;
     }
 }
